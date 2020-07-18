@@ -93,7 +93,7 @@ public class AfterStudyActivity extends AppCompatActivity {
         rb.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                studyCon = (int)(rating);
+                studyCon = (int)(rating * 2);
             }
         });
 

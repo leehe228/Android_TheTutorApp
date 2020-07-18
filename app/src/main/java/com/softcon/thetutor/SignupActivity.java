@@ -26,9 +26,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -45,6 +53,7 @@ public class SignupActivity extends AppCompatActivity {
     String myResult;
     String okCode;
     private int step;
+    private String tempPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -239,10 +248,27 @@ public class SignupActivity extends AppCompatActivity {
             http.setRequestMethod("POST");
             http.setRequestProperty("content-type", "application/x-www-form-urlencoded");
             // 서버로 값 전송
-            System.out.println(UserID + "@" + emailDot + " / " + Password + Name);
+
+            try {
+                tempPassword = AES256Chiper.AES_Encode(Password);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (NoSuchPaddingException e) {
+                e.printStackTrace();
+            } catch (InvalidKeyException e) {
+                e.printStackTrace();
+            } catch (InvalidAlgorithmParameterException e) {
+                e.printStackTrace();
+            } catch (IllegalBlockSizeException e) {
+                e.printStackTrace();
+            } catch (BadPaddingException e) {
+                e.printStackTrace();
+            }
             StringBuffer buffer = new StringBuffer();
             buffer.append("userid").append("=").append(UserID).append("&");;
-            buffer.append("password").append("=").append(Password).append("&");;
+            buffer.append("password").append("=").append(tempPassword).append("&");;
             buffer.append("name").append("=").append(Name);
             OutputStreamWriter outStream = new OutputStreamWriter(http.getOutputStream(), "UTF-8");
             PrintWriter writer = new PrintWriter(outStream);
@@ -263,18 +289,8 @@ public class SignupActivity extends AppCompatActivity {
                 SharedPreferences pref = getSharedPreferences(PREFERENCE, MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("userid", UserID);
-                editor.putString("autoLogin", "true");
-                editor.commit();
-
-                //Push Alarm
-                SharedPreferences pref2 = getSharedPreferences(PREFERENCE, MODE_PRIVATE);
-                SharedPreferences.Editor editor2 = pref2.edit();
+                editor.putString("autoLogin", "step1");
                 editor.putString("push", "true");
-                editor.commit();
-
-                //Time Setting
-                SharedPreferences pref3 = getSharedPreferences(PREFERENCE, MODE_PRIVATE);
-                SharedPreferences.Editor editor3 = pref3.edit();
                 editor.putInt("studyTime", 50);
                 editor.putInt("restTime", 10);
                 editor.commit();

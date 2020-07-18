@@ -268,6 +268,10 @@ public class SelectSubjectActivity extends AppCompatActivity {
             if(myResult.equals("1")){
                 Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
                 intent.putExtra("step", 3);
+                SharedPreferences pref2 = getSharedPreferences(PREFERENCE, MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref2.edit();
+                editor.putString("autoLogin", "step2");
+                editor.commit();
                 startActivity(intent);
                 finish();
             }

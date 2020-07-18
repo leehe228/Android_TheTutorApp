@@ -37,6 +37,7 @@ public class TutorialActivity extends AppCompatActivity {
         TextView tv_con2 = (TextView)findViewById(R.id.textview_contents2);
         Button bt_next = (Button)findViewById(R.id.button_next);
 
+        /* 진행 정보 입력받기 */
         Intent intent = getIntent();
         step = intent.getExtras().getInt("step");
         System.out.println(step);

@@ -18,9 +18,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class FindPasswordActivity extends AppCompatActivity {
 
@@ -196,6 +204,23 @@ public class FindPasswordActivity extends AppCompatActivity {
             http.setRequestMethod("POST");
             http.setRequestProperty("content-type", "application/x-www-form-urlencoded");
             // 서버로 값 전송
+            try {
+                newPassword = AES256Chiper.AES_Encode(newPassword);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (NoSuchPaddingException e) {
+                e.printStackTrace();
+            } catch (InvalidKeyException e) {
+                e.printStackTrace();
+            } catch (InvalidAlgorithmParameterException e) {
+                e.printStackTrace();
+            } catch (IllegalBlockSizeException e) {
+                e.printStackTrace();
+            } catch (BadPaddingException e) {
+                e.printStackTrace();
+            }
             StringBuffer buffer = new StringBuffer();
             buffer.append("userid").append("=").append(userEmail).append("&");
             buffer.append("password").append("=").append(newPassword);

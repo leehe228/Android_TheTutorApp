@@ -44,7 +44,7 @@ public class SettingActivity extends AppCompatActivity {
         Button bt_Push = (Button)findViewById(R.id.setting_pushalarm);
         Button bt_changePassword = (Button)findViewById(R.id.setting_changepasswd);
         Button bt_dev = (Button)findViewById(R.id.setting_dev);
-        Button bt_ask = (Button)findViewById(R.id.button_ask);
+        Button bt_ask = (Button)findViewById(R.id.setting_ask);
         Button bt_logOut = (Button)findViewById(R.id.setting_logout);
         Button bt_quitMember = (Button)findViewById(R.id.setting_quitmember);
 

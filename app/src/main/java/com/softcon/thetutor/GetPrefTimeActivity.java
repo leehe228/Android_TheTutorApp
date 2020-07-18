@@ -153,6 +153,10 @@ public class GetPrefTimeActivity extends AppCompatActivity {
             if(!myResult.equals(null) && myResult.equals("1")){
                 Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
                 intent.putExtra("step", 4);
+                SharedPreferences pref2 = getSharedPreferences(PREFERENCE, MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref2.edit();
+                editor.putString("autoLogin", "true");
+                editor.commit();
                 startActivity(intent);
                 finish();
             }

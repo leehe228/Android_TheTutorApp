@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -32,8 +33,8 @@ public class GetPrefSubjectActivity extends AppCompatActivity {
     int minS = 0;
 
     private int[] subjects = new int[10];
-    String[] data = new String[3];
-    String[] subData = new String[10];
+    private String[] data = new String[10];
+    private String[] subData = new String[10];
 
     /* Shared Preference (DATABASE) */
     public final String PREFERENCE = "com.studio572.samplesharepreference";
@@ -216,14 +217,16 @@ public class GetPrefSubjectActivity extends AppCompatActivity {
             int i = 0;
             while ((str = reader.readLine()) != null) {
                 builder.append(str + "\n");
-                if(i <= 2) {
+                if(i <= 3) {
                     data[i] = str;
+                    Log.i(Integer.toString(i), data[i]);
                     i++;
                 }
             }
-            subData = data[2].split("");
+            subData = data[3].split("");
             String myResult = builder.toString();
-            System.out.println(myResult);
+            Log.d("selected Subjects", subData.toString());
+            Log.d("Data get : ", myResult);
             Message msg = handler.obtainMessage();
             handler.sendMessage(msg);
 
@@ -240,7 +243,7 @@ public class GetPrefSubjectActivity extends AppCompatActivity {
                     WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.MATCH_PARENT);
             params2.height = 0;
 
-            for(int j = 0;j<10;j++){
+            for(int j = 0; j < 10 ; j++){
                 if(!subData[j].equals("")){
                     subjects[j] = Integer.parseInt(subData[j]);
                 }

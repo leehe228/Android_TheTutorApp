@@ -13,7 +13,8 @@
         android:roundIcon="@drawable/ic_main_foreground"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TodayActivity"/>
+        <activity android:name=".EventNotificationActivity"></activity>
+        <activity android:name=".TodayActivity" />
         <activity android:name=".DiagnosisActivity" />
         <activity android:name=".EditPlanActivity" />
         <activity android:name=".ChangePrefSubjectActivity" />

@@ -6,22 +6,40 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mmin18.widget.RealtimeBlurView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
     private String NowYearDayHourString;
     private String LastYearDayHourString;
     private String LastYearDayString;
+
+    /* notification */
+    private String isNoti;
+    private String notiTitle;
+    private String notiContent;
+    private String notiDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +92,37 @@ public class MainActivity extends AppCompatActivity {
         }
 
         System.out.println(NowYearDayHourString + "/" + LastYearDayHourString);
+        /* 메인화면 전 이벤트 */
+        /* 이벤트 노티피케이션 이벤트 */
+        SharedPreferences prefNoti = getSharedPreferences(PREFERENCE, MODE_PRIVATE);
+        String todayDate = prefNoti.getString("notiDenyDate", "00000000");
+        Intent getintent = getIntent();
+        isNoti = getintent.getExtras().getString("isNoti", "0");
+        notiTitle = getintent.getExtras().getString("notiTitle", "0");
+        notiContent = getintent.getExtras().getString("notiContent", "0");
+        notiDate = getintent.getExtras().getString("notiDate", "00000000");
 
+        Log.i("notiDenyDate", todayDate);
+        Log.i("notiDate", notiDate);
+        if(isNoti.equals("1")){
+            if(todayDate.equals(notiDate)){
+                //
+            }
+            else{
+                if(isNoti.equals("1")){
+                    Intent notiintent = new Intent(getApplicationContext(), EventNotificationActivity.class);
+                    notiintent.putExtra("notiDate", notiDate);
+                    notiintent.putExtra("notiTitle", notiTitle);
+                    notiintent.putExtra("notiContent", notiContent);
+                    startActivity(notiintent);
+                }
+            }
+        }
+        /* 날이 바뀔 때 */
         if(Integer.parseInt(NowYearDayHourString) - Integer.parseInt(LastYearDayHourString) >= 100){
             System.out.println("Date Changed!");
             System.out.println(Integer.parseInt(NowYearDayHourString) - Integer.parseInt(LastYearDayHourString));
-            Intent intent = new Intent(getApplicationContext(), TodoActivity.class);
+            Intent intent = new Intent(getApplicationContext(), TodayActivity.class);
             startActivity(intent);
             //Shared Preference
             SharedPreferences prefTotal = getSharedPreferences(PREFERENCE, MODE_PRIVATE);
@@ -395,7 +445,8 @@ public class MainActivity extends AppCompatActivity {
         bt_seeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), TodayActivity.class);
+                startActivity(intent);
             }
         });
 

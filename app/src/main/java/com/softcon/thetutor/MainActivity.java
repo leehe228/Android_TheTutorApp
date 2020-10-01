@@ -540,17 +540,17 @@ public class MainActivity extends AppCompatActivity {
             fabState = 0;
 
             /* FAB INSTANCE */
-            final ImageButton FAB_main = (ImageButton)findViewById(R.id.FAB_main);
-            final ImageButton FAB_timetable = (ImageButton)findViewById(R.id.FAB_timetable);
-            final ImageButton FAB_todo = (ImageButton)findViewById(R.id.FAB_todo);
-            final ImageButton FAB_study = (ImageButton)findViewById(R.id.FAB_study);
-            final ImageButton FAB_setting = (ImageButton)findViewById(R.id.FAB_setting);
+            final ImageButton FAB_main = findViewById(R.id.FAB_main);
+            final ImageButton FAB_timetable =findViewById(R.id.FAB_timetable);
+            final ImageButton FAB_todo = findViewById(R.id.FAB_todo);
+            final ImageButton FAB_study = findViewById(R.id.FAB_study);
+            final ImageButton FAB_setting =findViewById(R.id.FAB_setting);
 
             /* FAB TEXTVIEW INSTANCE*/
-            final TextView FABTV_timetable = (TextView)findViewById(R.id.FABTV_timetable);
-            final TextView FABTV_todo = (TextView)findViewById(R.id.FABTV_todo);
-            final TextView FABTV_study = (TextView)findViewById(R.id.FABTV_study);
-            final TextView FABTV_setting = (TextView)findViewById(R.id.FABTV_setting);
+            final TextView FABTV_timetable = findViewById(R.id.FABTV_timetable);
+            final TextView FABTV_todo = findViewById(R.id.FABTV_todo);
+            final TextView FABTV_study = findViewById(R.id.FABTV_study);
+            final TextView FABTV_setting =findViewById(R.id.FABTV_setting);
 
             /* BLUR INSTANCE */
             final RealtimeBlurView blurview = (RealtimeBlurView)findViewById(R.id.blur);
